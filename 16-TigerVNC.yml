@@ -1,0 +1,8 @@
+---
+- hosts: Fedora 
+  become: true
+  tasks:
+   - name: Install Tiger VNC 
+     dnf:
+       name: tigervnc-server 
+       state: present

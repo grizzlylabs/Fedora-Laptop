@@ -1,0 +1,8 @@
+---
+- hosts: Fedora 
+  become: true
+  tasks:
+   - name: Install Skype 
+     dnf:
+       name: https://go.skype.com/skypeforlinux-64.rpm 
+       state: present

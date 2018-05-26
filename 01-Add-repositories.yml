@@ -1,0 +1,38 @@
+---
+- hosts: Fedora 
+  become: true
+  tasks:
+   - name: Ensure libselinux-python is installed
+     dnf: name=libselinux-python state=latest
+   - name: Install Fedora Workstation additional Repositories
+     dnf:
+       name=fedora-workstation-repositories
+       state=latest
+   - name: Install RPM Fusion Repository 
+     dnf:
+       name={{ item }}
+       state=present
+     with_items:
+       - http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm
+       - http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_version }}.noarch.rpm
+   - name: Install Google Earth Repo
+     copy:
+       src: /usr/local/deploy/ansible/playbooks/Fedora/files/google-earth.repo
+       dest: /etc/yum.repos.d/google-earth.repo
+       owner: root
+       group: root
+       mode: u=rw,g=r,o=r
+   - name: Install Google Music Manager Repo
+     copy:
+       src: /usr/local/deploy/ansible/playbooks/Fedora/files/google-musicmanager.repo
+       dest: /etc/yum.repos.d/google-musicmanager.repo
+       owner: root
+       group: root
+       mode: u=rw,g=r,o=r
+   - name: Install Google Talk Plugin Repo
+     copy:
+       src: /usr/local/deploy/ansible/playbooks/Fedora/files/google-talkplugin.repo
+       dest: /etc/yum.repos.d/google-talkplugin.repo
+       owner: root
+       group: root
+       mode: u=rw,g=r,o=r

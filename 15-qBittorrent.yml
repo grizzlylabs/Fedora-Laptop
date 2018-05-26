@@ -1,0 +1,8 @@
+---
+- hosts: Fedora 
+  become: true
+  tasks:
+   - name: Install qBittorrent 
+     dnf:
+       name: qbittorrent 
+       state: present

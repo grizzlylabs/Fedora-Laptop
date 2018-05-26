@@ -1,0 +1,8 @@
+---
+- hosts: Fedora 
+  become: true
+  tasks:
+   - name: Install Vagrant with KVM and libvirt 
+     dnf:
+       name: "@vagrant, vagrant-libvirt"
+       state: present

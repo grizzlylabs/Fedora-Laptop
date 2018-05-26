@@ -1,0 +1,69 @@
+#################################################################
+#
+# This set of Ansible scripts builds a Grizzly style Laptop
+#
+# Bob Surenko 2018
+#################################################################
+#
+# Change control
+#
+# Created 2018 0212 Based on Fedora 27
+#
+#################################################################
+#
+# Burn DVD and Install Fedora Mate or Upgrade from previous version
+# Make sure to create an user with root rights during install
+# libvert needs a very lar /var to contain VMs
+#
+### Prepare the laptop for automation
+# 
+# SSH doesn't start after a new install
+# do this at the laptop:
+# sudo systemctl start sshd.service
+# sudo systemctl enable sshd.service
+#
+# Add the deployment account too
+# Note: all automated installs and configurations are done by the deploy user
+# sudo useradd -m -c 'Deployment User' -G wheel deploy
+# sudo passwd deploy
+#
+# make sure deploy can sudo without a password 
+# sudo visudo
+# add the line 'deploy  ALL=(ALL)       NOPASSWD: ALL'
+#
+# Add deployment administrators to the deploy group
+# usermod -a -G deploy USER
+# 
+# ON THE BUILD MACHINE
+# ssh USER@HOSTNAME
+# ssh USER@HOSTNAME.DOMAINNAME
+# ssh-copy-id -i ~/.ssh/id_rsa.pub USER@HOSTNAME
+# ssh-copy-id -i ~/.ssh/id_rsa.pub deploy@HOSTNAME
+# ssh deploy@HOSTNAME
+# ssh deploy@HOSTNAME.DOMAINNAME
+#
+### Get Ansible working
+# 
+# Make sure the laptop is in the build machine's inventory file
+# Let's call the Ansible group 'Fedora'
+#
+# Ansible ping to make sure everything is working
+# ansible Fedora -m ping
+### 
+#
+# The first Automation is to do a system upgrade on the laptop
+# 
+# This will cause the laptop to reboot and you will need put the key in to boot
+# This can take a long while expecially after a fresh install
+#
+# ansible-playbook ./00-upgrade.yml
+#
+# Starting lowest number begin automations. They will ocasionally ask a question 
+#
+# 01 through 09 are neccessary stuff
+# Do a 00-upgrade.yml
+# 10 through 29 are applications 
+# Do a 00-upgrade.yml
+# 30 through 39 are Virtual Machine support
+# 
+###   EOF   #####################################################

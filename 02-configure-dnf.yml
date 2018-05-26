@@ -1,0 +1,16 @@
+---
+- hosts: Fedora 
+  become: yes 
+  tasks:
+   - name: Install fastestmirror amd deltarpm 
+     dnf:
+        name: yum-plugin-fastestmirror
+        state: latest
+   - name: Edit /etc/dnf/dnf.conf for fastestmirror
+     lineinfile:
+        path: /etc/dnf/dnf.conf
+        line: fastestmirror=true
+   - name: Edit /etc/dnf/dnf.conf for deltarpm 
+     lineinfile:
+        path: /etc/dnf/dnf.conf
+        line: deltarpm=true

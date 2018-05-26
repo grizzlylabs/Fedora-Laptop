@@ -1,0 +1,26 @@
+---
+- hosts: Fedora
+  become: true
+  gather_facts: False
+  vars:
+    - packages: [ git-all ]
+  tasks:
+    - name: Installing {{ packages }} 
+      yum:
+        name: "{{ item }}"
+        state: latest 
+      with_items: "{{ packages }}"
+    - name: Create GIT Directories
+      file:
+        path: /usr/local/deploy
+        state: directory
+        owner: deploy
+        group: deploy
+        mode: u=rwx,g=rwx,o-rx,g+s
+    - name: Create more GIT Directories
+      file:
+        path: /usr/local/deploy/git
+        state: directory
+        owner: deploy
+        group: deploy
+        mode: u=rwx,g=rwx,o-rx,g+s

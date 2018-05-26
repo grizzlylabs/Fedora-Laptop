@@ -1,0 +1,41 @@
+---
+- hosts: Fedora 
+  become: true
+  tasks:
+   - name: Install Ansible 
+     dnf:
+       name: ansible 
+       state: present
+   - name: Create Ansible Directory
+     file:
+       path: /usr/local/deploy/ansible
+       state: directory
+       owner: deploy
+       group: deploy
+       mode: u=rwx,g=rwx,o-rx,g+s
+   - name: Create Ansible Playbooks Directory
+     file:
+       path: /usr/local/deploy/ansible/playbooks
+       state: directory
+       owner: deploy
+       group: deploy
+       mode: u=rwx,g=rwx,o-rx,g+s
+   - name: Create Ansible Roles Directory
+     file:
+       path: /usr/local/deploy/ansible/roles
+       state: directory
+       owner: deploy
+       group: deploy
+       mode: u=rwx,g=rwx,o-rx,g+s
+   - name: Change location of hosts file
+     lineinfile:
+       path: /etc/ansible/ansible.cfg
+       regexp: '^#inventory '
+       line: 'inventory = /usr/local/deploy/ansible/hosts'
+       backrefs: yes
+   - name: Change location of roles file
+     lineinfile:
+       path: /etc/ansible/ansible.cfg
+       regexp: '^#roles_path '
+       line: 'roles_path = /usr/local/deploy/ansible/roles'
+       backrefs: yes

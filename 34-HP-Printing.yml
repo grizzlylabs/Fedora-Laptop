@@ -1,0 +1,12 @@
+---
+- hosts: Fedora
+  become: true
+  gather_facts: False
+  vars:
+    - packages: [ hplip, hplip-gui, hpijs ]
+  tasks:
+    - name: Installing {{ packages }} 
+      yum:
+        name: "{{ item }}"
+        state: latest 
+      with_items: "{{ packages }}"

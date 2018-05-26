@@ -1,0 +1,20 @@
+---
+- hosts: Fedora 
+  become: true
+  tasks:
+   - name: Install Chrome Browser
+     dnf:
+       name: https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+       state: present
+   - name: Install Google Earth 
+     dnf:
+       name: google-earth-ec-stable.x86_64 
+       state: present
+   - name: Install Google Music Manager  
+     dnf:
+       name: google-musicmanager-beta.x86_64 
+       state: present
+   - name: Install Google Talk Plugin 
+     dnf:
+       name: google-talkplugin.x86_64 
+       state: present

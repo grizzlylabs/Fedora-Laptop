@@ -1,0 +1,26 @@
+---
+- hosts: Fedora 
+  become: true
+  tasks:
+
+  - name: Install xrdp
+    yum:
+      name: xrdp
+      state: latest
+
+  - name: Install Tiger VNC Server
+    yum:
+      name: tigervnc-server
+      state: latest
+
+  - name: Make Sure xrdp is Running
+#    systemd:
+    service:
+       name: xrdp
+       state: started
+       enabled: yes
+
+#  -name: Enable xrdp to Start at Boot
+#   systemd:
+#       name: xrdp
+#       masked: no

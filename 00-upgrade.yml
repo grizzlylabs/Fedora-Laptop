@@ -1,0 +1,23 @@
+---
+- hosts: Fedora 
+  become: true
+  tasks:
+   - name: All Fedora Hosts up to Date
+     dnf:
+       name: "*" 
+       state: latest
+   - name: Reboot
+     shell: sleep 2 && shutdown -r now
+     become: true
+     async: 1
+     poll: 0
+     ignore_errors: true
+   - name: wait for server to come back
+     become: false
+     local_action: wait_for
+     args:
+       host: "{{ inventory_hostname }}"
+       port: 22
+       state: started
+       delay: 90
+       timeout: 3000

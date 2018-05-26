@@ -1,0 +1,14 @@
+---
+- hosts: Fedora 
+  become: true
+  tasks:
+   - name: Install Media Codecs 
+     dnf:
+        name: gstreamer-plugins-base, gstreamer1-plugins-base, gstreamer-plugins-bad, gstreamer-plugins-ugly, gstreamer1-plugins-ugly, gstreamer-plugins-good-extras, gstreamer1-plugins-good-extras, gstreamer1-plugins-bad-freeworld, ffmpeg, gstreamer-ffmpeg 
+        state: latest
+   - name: Install libdvdcss DVD Playback MANUALLY CHECK VERSION
+     dnf:
+        name={{ item }}
+        state=present
+     with_items:
+        - https://rpmfind.net/linux/sourceforge/u/un/unitedrpms/{{ ansible_distribution_version }}/x86_64/libdvdcss-1.4.2-2.fc{{ ansible_distribution_version }}.x86_64.rpm

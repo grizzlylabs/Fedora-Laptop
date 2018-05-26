@@ -1,0 +1,28 @@
+---
+- hosts: Fedora 
+  become: true
+  tasks:
+   - name: Virtualization 
+     dnf:
+       name: "@Virtualization" 
+       state: present
+   - name: qemu-kvm virt-manager virt-install 
+     dnf:
+       name: qemu-kvm, virt-manager, virt-install 
+       state: present
+   - name: Create libvirt group
+     group:
+        name: libvirt
+        state: present
+   - name: Add Grizzly to libvirt group
+     user: name=grizzly groups=libvirt append=yes
+   - name: Add deploy to libvirt group
+     user: name=deploy groups=libvirt append=yes
+   - name: Start libvirtd
+     service:
+       name:  libvirtd
+       state: started 
+   - name: Enable libvirtd
+     service: 
+       name: libvirtd
+       enabled: yes 
