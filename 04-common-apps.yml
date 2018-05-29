@@ -4,5 +4,5 @@
   tasks:
    - name: Install Common Packages and Dependencies 
      dnf:
-        name: wget, alsa-lib, pulseaudio, glibc, unrar, unzip, p7zip, p7zip-plugins 
+        name: wget, alsa-lib, pulseaudio, glibc, unrar, unzip, p7zip, p7zip-plugins, nmap 
         state: latest

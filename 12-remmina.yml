@@ -4,5 +4,5 @@
   tasks:
    - name: Install Remmina
      dnf:
-        name: remmina 
+        name: remmina, remmina-plugins-spice 
         state: latest

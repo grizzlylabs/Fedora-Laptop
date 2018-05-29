@@ -6,9 +6,9 @@
      dnf:
        name: "@Virtualization" 
        state: present
-   - name: qemu-kvm virt-manager virt-install 
+   - name: qemu-kvm virt-manager virt-install virt-viewer qemu-img libvirt libvirt-client 
      dnf:
-       name: qemu-kvm, virt-manager, virt-install 
+       name: qemu-kvm, virt-manager, virt-install, virt-viewer, qemu-img, libvirt, libvirt-client 
        state: present
    - name: Create libvirt group
      group:
